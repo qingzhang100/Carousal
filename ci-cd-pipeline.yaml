@@ -18,8 +18,11 @@ spec:
 
     - name: checkout-code
       container:
-        image: git:latest
-        command: ["git", "clone", "https://github.com/your-repo.git"]
+        image: alpine:latest # 使用 Alpine 镜像作为基础镜像
+        command: ["/bin/sh", "-c"] # 执行一个 shell 命令
+        args:
+          - |
+            apk add --no-cache git && git clone https://github.com/your-repo.git  # 安装 Git 并克隆代码
 
     - name: build-image
       container:

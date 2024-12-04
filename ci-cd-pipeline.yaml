@@ -22,7 +22,7 @@ spec:
         command: ["/bin/sh", "-c"] # 执行一个 shell 命令
         args:
           - |
-            apk add --no-cache git && git clone https://github.com/your-repo.git  # 安装 Git 并克隆代码
+            apk add --no-cache git && git clone https://github.com/qingzhang100/Carousal.git  # 安装 Git 并克隆代码
 
     - name: build-image
       container:

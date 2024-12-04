@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: ci-cd-pipeline-
+spec:
+  entrypoint: ci-cd-pipeline
+  templates:
+    - name: ci-cd-pipeline
+      steps:
+        - - name: checkout-code
+            template: checkout-code
+        - - name: build-image
+            template: build-image
+        - - name: run-tests
+            template: run-tests
+        - - name: deploy
+            template: deploy-app
+
+    - name: checkout-code
+      container:
+        image: git:latest
+        command: ["git", "clone", "https://github.com/your-repo.git"]
+
+    - name: build-image
+      container:
+        image: docker:latest
+        command: ["docker", "build", "-t", "your-image", "."]
+
+    - name: run-tests
+      container:
+        image: your-test-image
+        command: ["run", "tests"]
+
+    - name: deploy-app
+      container:
+        image: kubectl:latest
+        command: ["kubectl", "apply", "-f", "deployment.yaml"]
